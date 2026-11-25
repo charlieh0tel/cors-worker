@@ -3,13 +3,22 @@ on:
   push:
     branches: [main]
     paths: ["worker/**"]
+  pull_request:
+    branches: [main]
+    paths: ["worker/**"]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: cloudflare/wrangler-action@v4
+
+      - name: Check Worker JS syntax
+        run: node --check worker/index.js
+
+      - name: Deploy Worker
+        if: github.event_name == 'push'
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
