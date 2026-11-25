@@ -2,8 +2,9 @@ const GITHUB_IO_URL = "https://charlieh0tel.github.io";
 
 const ALLOWED_ORIGINS = new Set([
   GITHUB_IO_URL,
-  "http://127.0.0.1:8000",
-  "http://localhost:8000",
+  // For debug only.
+  //  "http://127.0.0.1:8000",
+  //  "http://localhost:8000",
 ]);
 
 export default {
